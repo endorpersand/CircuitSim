@@ -97,7 +97,7 @@ public class SplitterPeer extends ComponentPeer<Splitter> {
 			splitter = new Splitter(properties.getValue(Properties.LABEL), bitSize, numInputs);
 		}
 		
-		setHeight(Math.max(2, splitter.getNumPorts()));
+		setHeight(Math.max(2, (splitter.getNumPorts() - 1) * 2));
 		
 		int[] bitFanIndices = splitter.getBitFanIndices();
 		for (int i = 0; i < bitFanIndices.length; i++) {
@@ -131,18 +131,18 @@ public class SplitterPeer extends ComponentPeer<Splitter> {
 			switch (direction) {
 				case EAST -> {
 					cx = getWidth();
-					cy = inputOnTopLeft ? i + 2 : getHeight() - i - 2;
+					cy = inputOnTopLeft ? 2 * i + 2 : getHeight() - 2 * i - 2;
 				}
 				case WEST -> {
 					cx = 0;
-					cy = inputOnTopLeft ? i + 2 : getHeight() - i - 2;
+					cy = inputOnTopLeft ? 2 * i + 2 : getHeight() - 2 * i - 2;
 				}
 				case SOUTH -> {
-					cx = inputOnTopLeft ? i + 2 : getWidth() - i - 2;
+					cx = inputOnTopLeft ? 2 * i + 2 : getWidth() - 2 * i - 2;
 					cy = getHeight();
 				}
 				case NORTH -> {
-					cx = inputOnTopLeft ? i + 2 : getWidth() - i - 2;
+					cx = inputOnTopLeft ? 2 * i + 2 : getWidth() - 2 * i - 2;
 					cy = 0;
 				}
 				default -> throw new IllegalArgumentException("Why are you doing this?");
@@ -205,7 +205,7 @@ public class SplitterPeer extends ComponentPeer<Splitter> {
 				                    x + GuiUtils.BLOCK_SIZE,
 				                    y + (inputOnTop ? height : 0));
 				
-				for (int i = 2 * GuiUtils.BLOCK_SIZE; i <= height; i += GuiUtils.BLOCK_SIZE) {
+				for (int i = 2 * GuiUtils.BLOCK_SIZE; i <= height; i += 2 * GuiUtils.BLOCK_SIZE) {
 					int offset = inputOnTop ? 0 : 2 * GuiUtils.BLOCK_SIZE;
 					graphics.strokeLine(x + GuiUtils.BLOCK_SIZE,
 					                    y + i - offset,

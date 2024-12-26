@@ -94,7 +94,7 @@ public abstract class GatePeer<T extends Gate> extends ComponentPeer<T> {
 		
 		// Expand the width (in the default configuration) by 1 if any inputs are negated or if there are more than
 		// five inputs. This will show the additional line in for each gate to avoid confusing "floating" ports.
-		if (hasNegatedInput || (gateNum > 5 && !forceLegacyInputPlacement)) {
+		if (hasNegatedInput || (gateNum > 3 && !forceLegacyInputPlacement)) {
 			hasExpandedInputs = true;
 			setWidth(width + 1);
 		} else if (gateNum > 5 && forceLegacyInputPlacement) {
@@ -116,7 +116,7 @@ public abstract class GatePeer<T extends Gate> extends ComponentPeer<T> {
 					connections.add(new PortConnection(this,
 					                                   gate.getPort(i),
 					                                   inputOffset,
-					                                   i + add - gateNum / 2 - (gateNum == 1 ? 1 : 0)));
+					                                   i * 2 - gateNum + 3));
 				}
 				
 				connections.add(new PortConnection(this,
@@ -131,7 +131,7 @@ public abstract class GatePeer<T extends Gate> extends ComponentPeer<T> {
 					int add = (gateNum % 2 == 0 && i >= gateNum / 2) ? 3 : 2;
 					connections.add(new PortConnection(this,
 					                                   gate.getPort(i),
-					                                   i + add - gateNum / 2 - (gateNum == 1 ? 1 : 0),
+					                                   i * 2 - gateNum + 3,
 					                                   inputOffset));
 				}
 				
