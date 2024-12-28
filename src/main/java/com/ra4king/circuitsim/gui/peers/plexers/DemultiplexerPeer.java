@@ -42,7 +42,7 @@ public class DemultiplexerPeer extends ComponentPeer<Demultiplexer> {
 		Demultiplexer demux = new Demultiplexer(properties.getValue(Properties.LABEL),
 		                                        properties.getValue(Properties.BITSIZE),
 		                                        properties.getValue(Properties.SELECTOR_BITS));
-		setHeight(demux.getNumOutputs() + 2);
+		setHeight(demux.getNumOutputs() * 2);
 		
 		GuiUtils.rotateElementSize(this, Direction.EAST, properties.getValue(Properties.DIRECTION));
 		
@@ -56,7 +56,7 @@ public class DemultiplexerPeer extends ComponentPeer<Demultiplexer> {
 				selOffset = 1;
 			case WEST:
 				for (int i = 0; i < demux.getNumOutputs(); i++) {
-					connections.add(new PortConnection(this, demux.getPort(i), String.valueOf(i), outOffset, i + 1));
+					connections.add(new PortConnection(this, demux.getPort(i), String.valueOf(i), outOffset, i * 2 + 1));
 				}
 				connections.add(new PortConnection(this,
 				                                   demux.getSelectorPort(),
@@ -74,7 +74,7 @@ public class DemultiplexerPeer extends ComponentPeer<Demultiplexer> {
 				selOffset = 1;
 			case NORTH:
 				for (int i = 0; i < demux.getNumOutputs(); i++) {
-					connections.add(new PortConnection(this, demux.getPort(i), String.valueOf(i), i + 1, outOffset));
+					connections.add(new PortConnection(this, demux.getPort(i), String.valueOf(i), i * 2 + 1, outOffset));
 				}
 				connections.add(new PortConnection(this,
 				                                   demux.getSelectorPort(),
@@ -99,8 +99,8 @@ public class DemultiplexerPeer extends ComponentPeer<Demultiplexer> {
 		
 		int x = getScreenX();
 		int y = getScreenY();
-		int width = 3 * GuiUtils.BLOCK_SIZE;
-		int height = (getComponent().getNumOutputs() + 2) * GuiUtils.BLOCK_SIZE;
+		int width = getScreenWidth();
+		int height = getScreenHeight();
 		
 		int zeroXOffset = 0;
 		

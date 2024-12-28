@@ -42,7 +42,7 @@ public class MultiplexerPeer extends ComponentPeer<Multiplexer> {
 		Multiplexer mux = new Multiplexer(properties.getValue(Properties.LABEL),
 		                                  properties.getValue(Properties.BITSIZE),
 		                                  properties.getValue(Properties.SELECTOR_BITS));
-		setHeight(mux.getNumInputs() + 2);
+		setHeight(mux.getNumInputs() * 2);
 		
 		GuiUtils.rotateElementSize(this, Direction.EAST, properties.getValue(Properties.DIRECTION));
 		
@@ -56,7 +56,7 @@ public class MultiplexerPeer extends ComponentPeer<Multiplexer> {
 				selOffset = 1;
 			case EAST:
 				for (int i = 0; i < mux.getNumInputs(); i++) {
-					connections.add(new PortConnection(this, mux.getPort(i), String.valueOf(i), outOffset, i + 1));
+					connections.add(new PortConnection(this, mux.getPort(i), String.valueOf(i), outOffset, i * 2 + 1));
 				}
 				connections.add(new PortConnection(this,
 				                                   mux.getSelectorPort(),
@@ -74,7 +74,7 @@ public class MultiplexerPeer extends ComponentPeer<Multiplexer> {
 				selOffset = 1;
 			case SOUTH:
 				for (int i = 0; i < mux.getNumInputs(); i++) {
-					connections.add(new PortConnection(this, mux.getPort(i), String.valueOf(i), i + 1, outOffset));
+					connections.add(new PortConnection(this, mux.getPort(i), String.valueOf(i), i * 2 + 1, outOffset));
 				}
 				connections.add(new PortConnection(this,
 				                                   mux.getSelectorPort(),
@@ -100,8 +100,8 @@ public class MultiplexerPeer extends ComponentPeer<Multiplexer> {
 		
 		int x = getScreenX();
 		int y = getScreenY();
-		int width = 3 * GuiUtils.BLOCK_SIZE;
-		int height = (getComponent().getNumInputs() + 2) * GuiUtils.BLOCK_SIZE;
+		int width = getScreenWidth();
+		int height = getScreenHeight();
 		
 		int zeroXOffset = 0;
 		

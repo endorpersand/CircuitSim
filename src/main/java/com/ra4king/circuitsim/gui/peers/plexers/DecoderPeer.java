@@ -41,7 +41,7 @@ public class DecoderPeer extends ComponentPeer<Decoder> {
 		Decoder
 			decoder =
 			new Decoder(properties.getValue(Properties.LABEL), properties.getValue(Properties.SELECTOR_BITS));
-		setHeight(decoder.getNumOutputs() + 2);
+		setHeight(decoder.getNumOutputs() * 2);
 		
 		GuiUtils.rotateElementSize(this, Direction.EAST, properties.getValue(Properties.DIRECTION));
 		
@@ -55,7 +55,7 @@ public class DecoderPeer extends ComponentPeer<Decoder> {
 				selOffset = 1;
 			case WEST:
 				for (int i = 0; i < decoder.getNumOutputs(); i++) {
-					connections.add(new PortConnection(this, decoder.getPort(i), String.valueOf(i), outOffset, i + 1));
+					connections.add(new PortConnection(this, decoder.getPort(i), String.valueOf(i), outOffset, i * 2 + 1));
 				}
 				connections.add(new PortConnection(
 					this,
@@ -69,7 +69,7 @@ public class DecoderPeer extends ComponentPeer<Decoder> {
 				selOffset = 1;
 			case NORTH:
 				for (int i = 0; i < decoder.getNumOutputs(); i++) {
-					connections.add(new PortConnection(this, decoder.getPort(i), String.valueOf(i), i + 1, outOffset));
+					connections.add(new PortConnection(this, decoder.getPort(i), String.valueOf(i), i * 2 + 1, outOffset));
 				}
 				connections.add(new PortConnection(
 					this,
@@ -90,8 +90,8 @@ public class DecoderPeer extends ComponentPeer<Decoder> {
 		
 		int x = getScreenX();
 		int y = getScreenY();
-		int width = 3 * GuiUtils.BLOCK_SIZE;
-		int height = (getComponent().getNumOutputs() + 2) * GuiUtils.BLOCK_SIZE;
+		int width = getScreenWidth();
+		int height = getScreenHeight();
 		
 		int zeroXOffset = 0;
 		
