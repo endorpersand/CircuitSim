@@ -113,12 +113,12 @@ public class SubcircuitPeer extends ComponentPeer<Subcircuit> {
 				"Pin count and ports count don't match? " + pins.size() + " vs " + subcircuit.getNumPorts());
 		}
 		
-		setWidth(Math.max(3, Math.max(northPins.size(), southPins.size()) + 1));
-		setHeight(Math.max(3, Math.max(eastPins.size(), westPins.size()) + 1));
+		setWidth(Math.max(3, Math.max(northPins.size(), southPins.size()) * 2 + 2));
+		setHeight(Math.max(3, Math.max(eastPins.size(), westPins.size()) * 2 + 2));
 		
 		for (int i = 0; i < eastPins.size(); i++) {
 			int connX = 0;
-			int connY = i + 1;
+			int connY = i * 2 + 2;
 			connections.add(new PortConnection(
 				this,
 				subcircuit.getPort(eastPins.get(i).getComponent()),
@@ -129,7 +129,7 @@ public class SubcircuitPeer extends ComponentPeer<Subcircuit> {
 		
 		for (int i = 0; i < westPins.size(); i++) {
 			int connX = getWidth();
-			int connY = i + 1;
+			int connY = i * 2 + 2;
 			connections.add(new PortConnection(
 				this,
 				subcircuit.getPort(westPins.get(i).getComponent()),
@@ -139,7 +139,7 @@ public class SubcircuitPeer extends ComponentPeer<Subcircuit> {
 		}
 		
 		for (int i = 0; i < northPins.size(); i++) {
-			int connX = i + 1;
+			int connX = i * 2 + 2;
 			int connY = getHeight();
 			connections.add(new PortConnection(
 				this,
@@ -150,7 +150,7 @@ public class SubcircuitPeer extends ComponentPeer<Subcircuit> {
 		}
 		
 		for (int i = 0; i < southPins.size(); i++) {
-			int connX = i + 1;
+			int connX = i * 2 + 2;
 			int connY = 0;
 			connections.add(new PortConnection(
 				this,
