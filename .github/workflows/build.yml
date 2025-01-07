@@ -35,5 +35,5 @@ jobs:
       - name: Upload Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release create v${{ inputs.build_version }} out/*
+        run: gh release create v${{ inputs.build_version }} -t v${{ inputs.build_version }} out/*
         shell: bash
